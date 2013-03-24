@@ -31,8 +31,6 @@ apt-get -y install nfs-common
 
 # Install Ruby from source in /opt so that users of Vagrant
 # can install their own Rubies using packages or however.
-# We must install the 1.8.x series since Puppet doesn't support
-# Ruby 1.9 yet.
 wget http://ftp.ruby-lang.org/pub/ruby/1.8/ruby-1.8.7-p334.tar.gz
 tar xvzf ruby-1.8.7-p334.tar.gz
 cd ruby-1.8.7-p334
@@ -50,12 +48,11 @@ cd rubygems-1.8.17
 cd ..
 rm -rf rubygems-1.8.17*
 
-# Installing chef & Puppet
-/opt/ruby/bin/gem install chef --no-ri --no-rdoc
-/opt/ruby/bin/gem install puppet --no-ri --no-rdoc
+# Installing Chef
+/opt/ruby/bin/gem install chef --no-ri --no-rdoc --version '>= 10, < 11'
 
 # Add /opt/ruby/bin to the global path as the last resort so
-# Ruby, RubyGems, and Chef/Puppet are visible
+# Ruby, RubyGems, and Chef are visible
 echo 'PATH=$PATH:/opt/ruby/bin/'> /etc/profile.d/vagrantruby.sh
 
 # Need conditionals around `mesg n` so that Chef doesn't throw
